@@ -1,0 +1,35 @@
+{
+  "name": "vim-effortless",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "concurrently \"yarn watch\" \"yarn app\"",
+    "build": "webpack",
+    "watch": "webpack --watch --mode development",
+    "app": "./node_modules/.bin/electron ."
+  },
+  "author": "childhooooo <hikaru@childhooooo.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@polymer/polymer": "^3.3.0",
+    "autoprefixer": "^9.7.0",
+    "babel-loader": "^8.0.6",
+    "bower": "^1.8.8",
+    "concurrently": "^5.0.0",
+    "css-loader": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss-loader": "^3.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "electron": "^7.0.0",
+    "neovim-component": "^0.10.1"
+  }
+}
