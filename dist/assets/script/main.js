@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _stylus_app_styl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../stylus/app.styl */ \"./src/assets/stylus/app.styl\");\n/* harmony import */ var _stylus_app_styl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_stylus_app_styl__WEBPACK_IMPORTED_MODULE_0__);\n\nvar neovim_element = document.getElementById('neovim');\nvar editor = neovim_element.editor;\n\nvar electron = __webpack_require__(/*! electron */ \"electron\");\n\nvar remote = electron.remote;\nvar shell = electron.shell;\neditor.on('error', function (err) {\n  alert(err.message);\n});\neditor.on('process-attached', function () {\n  if (remote.process.argv.length > 2) {\n    // It is better to use 'argv' property of <neovim-editor>.\n    editor.setArgv(remote.process.argv.slice(2));\n  }\n\n  neovim_element.addEventListener('drop', function (e) {\n    e.preventDefault();\n    var f = e.dataTransfer.files[0];\n\n    if (f) {\n      editor.getClient().command('e! ' + f.path); // 'path' member is Electron extension\n    }\n  });\n});\neditor.on('quit', function () {\n  return remote.app.quit();\n});\neditor.store.on('beep', function () {\n  return shell.beep();\n});\neditor.store.on('title-changed', function () {\n  document.title = editor.store.title;\n});\neditor.store.on('icon-changed', function () {\n  var icon = editor.store.icon_path;\n\n  if (icon === '') {\n    return;\n  }\n\n  if (process.platform === 'darwin') {\n    remote.getCurrentWindow().setRepresentedFilename(icon);\n  }\n});\nneovim_element.addEventListener('dragover', function (e) {\n  return e.preventDefault();\n});\n\n//# sourceURL=webpack:///./src/assets/script/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _stylus_app_styl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../stylus/app.styl */ \"./src/assets/stylus/app.styl\");\n/* harmony import */ var _stylus_app_styl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_stylus_app_styl__WEBPACK_IMPORTED_MODULE_0__);\n\n\nvar _require = __webpack_require__(/*! electron */ \"electron\"),\n    remote = _require.remote,\n    ipcRenderer = _require.ipcRenderer;\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar path = __webpack_require__(/*! path */ \"path\");\n\nvar configFile = path.join(remote.app.getPath('home'), process.env.CONFIG_DIR, process.env.CONFIG_FILE);\nfs.readFile(configFile, function (error, data) {\n  setConfig(JSON.parse(data));\n});\nvar config = document.querySelectorAll('.config');\nconfig.forEach(function (c) {\n  c.addEventListener('input', function (e) {\n    ipcRenderer.send('changeConfig', {\n      name: e.target.id,\n      value: e.target.value\n    });\n  });\n});\nvar defaultButton = document.getElementById('default');\nvar defaultConfig = {\n  shortcut: '',\n  dir: path.join(remote.app.getPath('home'), process.env.CONFIG_DIR)\n};\ndefaultButton.addEventListener('click', function () {\n  setConfig(defaultConfig);\n});\n\nfunction setConfig(config) {\n  document.getElementById('shortcut').value = config.shortcut;\n  document.getElementById('dir').value = config.dir;\n  ipcRenderer.send('changeConfig', {\n    name: 'shortcut',\n    value: config.shortcut\n  });\n  ipcRenderer.send('changeConfig', {\n    name: 'dir',\n    value: config.dir\n  });\n}\n\n//# sourceURL=webpack:///./src/assets/script/main.js?");
 
 /***/ }),
 
@@ -117,6 +117,28 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"electron\");\n\n//# sourceURL=webpack:///external_%22electron%22?");
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"fs\");\n\n//# sourceURL=webpack:///external_%22fs%22?");
+
+/***/ }),
+
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%22path%22?");
 
 /***/ })
 

@@ -1,13 +1,26 @@
 html, body
-    height: 100%
     width: 100%
-    margin: 0
-    padding: 0
-    overflow: hidden
+    height: 100%
+    font-size: 14px
 
 .app
-    &--neovim
-        position: relative
-        z-index: 5
-        width: 100%
-        height: 100%
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    background-color: #efefef
+
+    &--shortcut, &--dir, &--default
+        width: 90%
+        padding: .2rem .4rem
+        background-color: #ffffff
+
+    &--dir
+        margin-top: .4rem
+
+    &--default
+        margin-top: .8rem
+        background-color: #dddddd
+        //border: 1px solid #aaaaaa

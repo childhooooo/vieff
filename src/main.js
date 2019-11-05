@@ -1,34 +1,34 @@
-const {app, BrowserWindow} = require('electron')
+import store from './lib/store.js'
+import Timer from './lib/timer.js'
+import Event from './lib/event.js'
+import Render from './lib/render.js'
+import Config from './lib/config.js'
+import Shortcut from './lib/shortcut.js'
+import Ui from './lib/ui.js'
+
+require('dotenv').config({ path: __dirname + '/../.env' })
+const {app, Tray, Menu, BrowserWindow, ipcMain, globalShortcut} = require('electron')
 const path = require('path')
 
-let mainWindow
-var index_html = 'file://' + path.join(__dirname, 'index.html')
+Config.init(store)
 
-function createWindow () {
-    mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        useContentSize: true,
-        webPreferences: {
-            blinkFeatures: 'KeyboardEventKey,Accelerated2dCanvas,Canvas2dFixedRenderingMode',
-            nodeIntegration: true,
-        }
-    })
+app.on('ready', () => {
+  Ui.createTray(store)
+  Ui.createNotification(store)
+  Shortcut.registerOpenMenu(store.state.tray, store.state.shortcut)
+  Timer.up(store, [Event.update, Render.update])
+})
 
-    mainWindow.on('closed', () => {
-        mainWindow = null
-    })
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit()
+})
 
-    app.on('closed', () => {
-        mainWindow = null
-        app.quit()
-    })
+app.on('quit', () => {
+  store.state.tray.destroy()
+})
 
-    if(process.env['NODE_ENV'] != 'production') {
-        mainWindow.webContents.openDevTools({ mode: 'detach' })
-    }
-
-    mainWindow.loadURL(index_html)
-}
-
-app.on('ready', createWindow)
+ipcMain.on('changeConfig', (event, arg) => {
+  if(arg.name === 'shortcut') Shortcut.registerOpenMenu(store.state.tray, arg.value)
+  store.mutations.setConfig(arg.name, arg.value)
+  Config.write(store)
+})

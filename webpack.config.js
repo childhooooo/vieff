@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const main = {
   target: 'electron-main',
@@ -38,6 +39,10 @@ const renderer = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist/assets/script')
   },
+  node: {
+    __dirname: false,
+    __filename: false
+  },
   module: {
     rules: [
       {
@@ -62,12 +67,24 @@ const renderer = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.styl']
+    extensions: ['.js', '.styl', '.html']
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../../assets/css/[name].css"
-    })
+      filename: "../css/[name].css"
+    }),
+    new CopyWebpackPlugin(
+      [
+        {
+          from: 'src',
+          to: '../../',
+          ignore: ['!*.html']
+        }, {
+          from: 'src/assets/img',
+          to: '../img'
+        }
+      ]
+    )
   ]
 };
 
