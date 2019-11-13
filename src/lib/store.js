@@ -5,6 +5,7 @@ import Status from './status.js'
 const store = () => {
 
   const state = {
+    main: null,
     window: null,
     tray: null,
     notification: null,

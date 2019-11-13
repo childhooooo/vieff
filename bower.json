@@ -1,0 +1,16 @@
+{
+  "name": "vim-effortless",
+  "description": "",
+  "version": "1.0.0",
+  "authors": [
+    "childhooooo <hikaru@childhooooo.com>"
+  ],
+  "main": "dist/index.html",
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "^2.5.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^v1.0.19"
+  }
+}

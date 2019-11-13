@@ -15,6 +15,7 @@ Config.init(store)
 app.on('ready', () => {
   Ui.createTray(store)
   Ui.createNotification(store)
+  Ui.createMain(store, 400, 600)
   Shortcut.registerOpenMenu(store.state.tray, store.state.shortcut)
   Timer.up(store, [Event.update, Render.update])
 })

@@ -239,9 +239,11 @@ html,
 body {
   width: 100%;
   height: 100%;
-  font-size: 14px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
 }
-.app {
+.preference {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -255,18 +257,25 @@ body {
           justify-content: center;
   background-color: #efefef;
 }
-.app--shortcut,
-.app--dir,
-.app--default {
+.preference--shortcut,
+.preference--dir,
+.preference--default {
   width: 90%;
   padding: 0.2rem 0.4rem;
   background-color: #fff;
 }
-.app--dir {
+.preference--dir {
   margin-top: 0.4rem;
 }
-.app--default {
+.preference--default {
   margin-top: 0.8rem;
   background-color: #ddd;
+/*
+.app
+    width: 100%
+    height: 100%
+    overflow: hidden
+    background-color: #efefef
+    */
 }
 
