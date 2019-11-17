@@ -21,9 +21,7 @@ function registerOpenMenu(tray, value) {
       globalShortcut.register(value, () => {
         tray.popUpContextMenu()
       })
-    } catch {
-      console.log('invalid shortcut')
-    }
+    } catch {}
   }
 }
 

@@ -1,37 +1,49 @@
 {
-  "name": "vim-effortless",
+  "name": "Vieff",
+  "description": "A Mac menubar app to use Pomodoro Technique with To-do list.",
   "version": "1.0.0",
-  "main": "dist/main.js",
+  "main": "build/main.js",
   "scripts": {
     "dev": "concurrently \"yarn watch\" \"yarn app\"",
     "build": "webpack",
     "watch": "webpack --watch --mode development",
-    "app": "./node_modules/.bin/electron ."
+    "app": "./node_modules/.bin/electron .",
+    "dist": "electron-builder"
   },
   "author": "childhooooo <hikaru@childhooooo.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "autoprefixer": "^9.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "autoprefixer": "^9.7.1",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.0.0",
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "postcss-loader": "^3.0.0",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.6.4",
+    "typescript": "^3.7.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9",
-    "bower": "^1.8.8"
+    "webpack-cli": "^3.3.10",
+    "electron": "~7.1.1",
+    "electron-builder": "^21.2.0"
   },
   "dependencies": {
-    "chokidar": "^3.2.3",
-    "dotenv": "^8.2.0",
-    "electron": "~5.0.3",
-    "neovim-component": "^0.10.1"
+    "chalk": "^3.0.0",
+    "codemirror": "^5.49.2",
+    "dotenv": "^8.2.0"
+  },
+  "build": {
+    "mac": {
+      "target": "zip",
+      "icon": "build/assets/img/icon.icns"
+    },
+    "files": [
+      "build/**/*"
+    ]
   }
 }

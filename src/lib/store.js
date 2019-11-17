@@ -12,14 +12,16 @@ const store = () => {
     timer: null,
     dir: '',
     shortcut: '',
-    status: Status.ACTIVE,
-    count: 10000,
-    task: {
-      name: 'コーディング',
-      time: 0
-    },
+    status: Status.STANDBY,
+    count: 0,
+    task: null,
+    tasks: [],
+    rawTasks: '',
     events: [],
-    unit: 1000
+    second: 1000,
+    unit: 500,
+    minute: 1000 * 60,
+    extendMinutes: 5
   }
 
   const mutations = {
@@ -44,10 +46,19 @@ const store = () => {
       }
     },
     extendCount: () => {
-      state.count += state.unit * 60 * 5
+      state.count += state.extendMinutes * state.minute
     },
-    setName: (name) => {
-      state.name = name
+    newTask: (task) => {
+      state.task = task
+      state.count = task.time * state.minute
+    },
+    clearTask: () => {
+      state.task = null
+      state.count = 0
+    },
+    setTasks: (raw, tasks) => {
+      state.tasks = tasks
+      state.rawTasks = raw
     },
     shiftEvent: () => {
       state.events = state.events.slice(1)

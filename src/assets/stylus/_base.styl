@@ -4,6 +4,11 @@ html, body
     margin: 0px
     padding: 0px
     overflow: hidden
+    font-size: 16px
+
+html, body, *
+    font-family: Osaka-Mono, 'Osaka-等幅', Osaka, -apple-system, BlinkMacSystemFont, "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, Arial, "メイリオ", Meiryo, sans-serif
+    font-size: 1rem
 
 .preference
     width: 100%
@@ -17,6 +22,7 @@ html, body
     &--shortcut, &--dir, &--default
         width: 90%
         padding: .2rem .4rem
+        color: #242424
         background-color: #ffffff
 
     &--dir
@@ -27,14 +33,29 @@ html, body
         background-color: #dddddd
         //border: 1px solid #aaaaaa
 
-        /*
 .app
     width: 100%
     height: 100%
     overflow: hidden
-    background-color: #efefef
-    */
+    background-color: #242424
 
-    //&--neovim
-        //width: 100%
-        //height: 100%
+    .CodeMirror
+        height: 100%
+        padding: .5rem
+        font-size: 1rem
+        line-height: 1.7
+
+    .cm-fat-cursor-mark
+        position: relative
+        background-color: transparent
+
+        &::before
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            display: block
+            min-width: .5rem
+            width: 100%
+            height: 100%
+            background-color: rgba(20, 255, 20, .5)

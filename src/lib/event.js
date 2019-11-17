@@ -17,6 +17,10 @@ function update(store) {
       break
     case 'extend':
       store.mutations.extendCount()
+      if(store.state.status === Status.HOLD) store.mutations.setStatus(Status.ACTIVE)
+      break
+    case 'complete':
+      store.mutations.setStatus(Status.DONE)
       break
     default:
       if(store.state.status !== Status.ACTIVE) break

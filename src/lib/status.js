@@ -1,6 +1,8 @@
 export default {
-  STADNBY: 'standby',
   ACTIVE: 'active',
   PAUSE: 'pause',
-  FINISH: 'finish'
+  FINISH: 'finish',
+  HOLD: 'hold',
+  DONE: 'done',
+  STANDBY: 'standby'
 }

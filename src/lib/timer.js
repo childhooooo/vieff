@@ -8,7 +8,7 @@ function up(store, updaters) {
 }
 
 function display(ms) {
-  const ofSeconds = Math.floor(ms/ 1000)
+  const ofSeconds = Math.floor(ms / 1000)
   const minutes = Math.floor(ofSeconds / 60)
   const seconds = ofSeconds - minutes * 60
   return minutes + ':' + ss(seconds)
