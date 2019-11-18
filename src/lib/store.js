@@ -34,6 +34,9 @@ const store = () => {
     setTimer: (timer) => {
       state.timer = timer
     },
+    clearTimer: () => {
+      state.timer = null
+    },
     setStatus: (status) => {
       state.status = status
     },

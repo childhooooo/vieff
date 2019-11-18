@@ -1,10 +1,13 @@
 function down(store) {
-  clearInterval(store.state.timerId)
+  clearInterval(store.state.timer)
+  store.mutations.clearTimer()
 }
 
 function up(store, updaters) {
-  const timer = setInterval(() => updaters.map(u => u(store)), store.state.unit)
-  store.mutations.setTimer(timer)
+  if(!store.state.timer) {
+    const timer = setInterval(() => updaters.map(u => u(store)), store.state.unit)
+    store.mutations.setTimer(timer)
+  }
 }
 
 function display(ms) {

@@ -10,6 +10,7 @@ import Parser from './lib/parser.js'
 import {dirname} from './lib/dirname.js'
 
 const path = require('path')
+const electron = require('electron')
 const {app, Tray, Menu, BrowserWindow, ipcMain, globalShortcut} = require('electron')
 require('dotenv').config({ path: path.join(dirname, '.env') })
 
@@ -23,6 +24,13 @@ app.on('ready', () => {
   Ui.createNotification(store)
   Shortcut.registerOpenMenu(store.state.tray, store.state.shortcut)
   Timer.up(store, [Event.update, Task.update, Render.update])
+
+  electron.powerMonitor.on('suspend', () => {
+    Timer.down(store)
+  })
+  electron.powerMonitor.on('resume', () => {
+    Timer.up(store, [Event.update, Task.update, Render.update])
+  })
 })
 
 app.on('window-all-closed', function () {
@@ -40,4 +48,5 @@ ipcMain.on('write', (event, arg) => {
   store.mutations.setTasks(arg, tasks)
   Render.writeFile(store, arg)
   Task.update(store)
+  Timer.up(store, [Event.update, Task.update, Render.update])
 })
